@@ -27,4 +27,28 @@ public class Item {
         return ("Article : " + title + "\n(" + guid
                 + ") Le = " + published);
     }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPublished() {
+        return published;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublished(String published) {
+        this.published = published;
+    }
 }

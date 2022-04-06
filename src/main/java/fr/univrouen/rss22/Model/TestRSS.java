@@ -3,6 +3,8 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TestRSS {
@@ -20,5 +22,17 @@ public class TestRSS {
         }
 
         return content;
+    }
+
+    public InputStream loadInputStream() {
+        Resource resource = new DefaultResourceLoader().getResource("classpath:xml/item.xml");
+
+
+        try {
+            return resource.getInputStream();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

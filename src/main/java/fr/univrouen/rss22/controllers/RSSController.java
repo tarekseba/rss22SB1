@@ -1,9 +1,12 @@
 package fr.univrouen.rss22.controllers;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import fr.univrouen.rss22.Model.Item;
 import fr.univrouen.rss22.Model.TestRSS;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.InputStreamReader;
 
 @RestController
 public class RSSController {
@@ -36,8 +39,20 @@ public class RSSController {
 
     @GetMapping(value = "/xml", produces = MediaType.APPLICATION_XML_VALUE)
     public @ResponseBody
-    Item getXML() {
-        Item it = new Item("12345678","Test item","2022-05-01T11:22:33");
-        return it;
+    Item[] getXML() {
+        XmlMapper mapper = new XmlMapper();
+        TestRSS rss = new TestRSS();
+        Item[] item = null;
+
+        try {
+            String xml = rss.loadFileXML();
+            System.out.println(xml);
+            item = mapper.readValue(xml, Item[].class);
+            System.out.println(item.toString());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return item;
     }
 }
